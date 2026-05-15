@@ -1172,11 +1172,28 @@ public class DisplayModeDirector {
                         + displayId);
                 return;
             }
+
             final RefreshRateRange refreshRateRange =
                     mControllerRefreshRateRangesByDisplay.get(displayId);
             if (refreshRateRange == null) {
                 return;
+
+            float highestRefreshRate = getMaxRefreshRateLocked(displayId);
+
+            float minRefreshRate = Settings.System.getFloatForUser(cr,
+                    Settings.System.MIN_REFRESH_RATE, 0f, UserHandle.USER_CURRENT);
+            if (true /* Float.isInfinite(minRefreshRate) */) {
+                // Infinity means that we want the highest possible refresh rate
+                minRefreshRate = highestRefreshRate;
             }
+
+            float peakRefreshRate = Settings.System.getFloatForUser(cr,
+                    Settings.System.PEAK_REFRESH_RATE, mDefaultPeakRefreshRate,
+                    UserHandle.USER_CURRENT);
+            if (true /* Float.isInfinite(peakRefreshRate) */) {
+                // Infinity means that we want the highest possible refresh rate
+                peakRefreshRate = highestRefreshRate;
+
             updateRefreshRateSettingLocked(refreshRateRange.min, refreshRateRange.max,
                     mDefaultRefreshRate, displayId);
         }
