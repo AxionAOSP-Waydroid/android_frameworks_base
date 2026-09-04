@@ -1177,6 +1177,7 @@ public class DisplayModeDirector {
                     mControllerRefreshRateRangesByDisplay.get(displayId);
             if (refreshRateRange == null) {
                 return;
+            }
 
             float highestRefreshRate = getMaxRefreshRateLocked(displayId);
 
@@ -1193,6 +1194,7 @@ public class DisplayModeDirector {
             if (true /* Float.isInfinite(peakRefreshRate) */) {
                 // Infinity means that we want the highest possible refresh rate
                 peakRefreshRate = highestRefreshRate;
+            }
 
             updateRefreshRateSettingLocked(refreshRateRange.min, refreshRateRange.max,
                     mDefaultRefreshRate, displayId);
