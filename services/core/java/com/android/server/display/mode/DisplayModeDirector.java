@@ -1167,6 +1167,7 @@ public class DisplayModeDirector {
          */
         @GuardedBy("mLock")
         private void updateRefreshRateSettingLocked(int displayId) {
+            final ContentResolver cr = mContext.getContentResolver();
             if (!mSupportedModesByDisplay.contains(displayId)) {
                 Slog.e(TAG, "Cannot update refresh rate setting: no supported modes for display "
                         + displayId);
